@@ -61,6 +61,7 @@ nav li {
 }
 
 .modal p, .modal h3 {
+  text-shadow: 1px 1px 1px black;;
   margin: 0px;
 }
 

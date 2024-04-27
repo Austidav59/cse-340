@@ -117,6 +117,12 @@ div a {
 
 @media only screen and (min-width: 768px) 
 {
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
   html {
 
     background-image: url("../images/site/checkerboard.jpg");
@@ -131,38 +137,19 @@ div a {
     border-radius: 10px;
   }
 
-  main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
-
-  .title {
-    grid-column: 1/4;
-    grid-row: 1/2;
-  }
-  
-  .dolor-img{
-    grid-column: 2/6;
-    grid-row: 2/4;
-    width: 200%;
-    height: 150%;
-
+  .sectionsLarge {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
   }
 
   .modal {
-    left: 220px;
     top: 300px;
-    padding:30px;
+    left: 200px;
   }
 
-  .reviews {
-    grid-column: 1/4;
-    grid-row: 3/6;
-  }
-
-  .dolorUpgrades {
-
+  ul li {
+    margin: 40px 5px;
   }
 
 }

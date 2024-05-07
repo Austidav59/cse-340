@@ -11,6 +11,7 @@ const app = express()
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
+app.use("/inv", inventoryRoute)
 
 /* ***********************
  * View Engine and Templates
@@ -25,11 +26,14 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(static)
 
+
+
 // Index Route
-app.get("/", function(req, res){
-    res.render("index", {title: "Home"})
-})
+// app.get("/", function(req, res){
+//     res.render("index", {title: "Home",nav: null})
+// })
 app.get("/", baseController.buildHome)
+app.use("/inv", inventoryRoute)
 
 /* ***********************
  * Local Server Information

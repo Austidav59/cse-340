@@ -57,6 +57,25 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+Util.buildVehicleGrid = async function(data) {
+  let grid
+  if(data.length > 0){
+    grid = `
+    <div class="container">
+      <img src="${data[0].inv_image}">
+      <div class="container-large">
+        <h1>${data[0].inv_make} ${data[0].inv_model} Details</h1>
+        <p>Price: ${data[0].inv_price}</p>
+        <p>${data[0].inv_description}</p>
+        <div>Color: ${data[0].inv_color}</div>
+        <div>Miles: ${data[0].inv_miles} Miles</div>
+      </div>
+    </div>
+    `
+  }
+  return grid;
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

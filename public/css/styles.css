@@ -136,6 +136,36 @@ div a {
   border-radius: 10px 10px 0px 0px;
 }
 
+/* single view inventory vehicle details */
+
+.img-inv{
+  display: block;
+  text-align: center;
+  width: 95vw;
+  height: auto;
+  margin: 0px auto;
+}
+
+.container-large{
+  text-align: left;
+  font-size: larger;
+}
+
+.price, .color {
+  background-color: whitesmoke;
+  padding: 15px 0px;
+}
+
+.price, .color, .sec-title, .details, .miles {
+  margin: 40px 0px;
+}
+
+footer{
+  margin-top: 5em;
+}
+
+
+
 
 
 @media only screen and (min-width: 768px) 
@@ -180,6 +210,16 @@ div a {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 5px;
     align-items: center;
+  }
+
+  .container{
+    display: flex;
+  }
+
+  .img-inv{
+    margin-top: 2em;
+    height: 50%;
+    margin: 2em 1em 0px .5em;
   }
 
 }

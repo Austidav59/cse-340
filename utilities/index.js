@@ -62,13 +62,13 @@ Util.buildVehicleGrid = async function(data) {
   if(data.length > 0){
     grid = `
     <div class="container">
-      <img src="${data[0].inv_image}">
+      <img class="img-inv" src="${data[0].inv_image}">
       <div class="container-large">
-        <h1>${data[0].inv_make} ${data[0].inv_model} Details</h1>
-        <p>Price: ${data[0].inv_price}</p>
-        <p>${data[0].inv_description}</p>
-        <div>Color: ${data[0].inv_color}</div>
-        <div>Miles: ${data[0].inv_miles} Miles</div>
+        <h1 class="sec-title">${data[0].inv_make} ${data[0].inv_model} Details</h1>
+        <p class="price">Price: $${data[0].inv_price}</p>
+        <p class="details">${data[0].inv_description}</p>
+        <p class="color">Color: ${data[0].inv_color}</p>
+        <p class="miles">Miles: ${data[0].inv_miles} Miles</p>
       </div>
     </div>
     `

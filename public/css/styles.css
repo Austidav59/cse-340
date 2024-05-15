@@ -166,7 +166,7 @@ footer{
 
 /* Login view */
 
-fieldset {
+form {
   display: block;
   height: 75%;
   width: 50%;
@@ -174,18 +174,18 @@ fieldset {
   background-color: rgb(0, 128, 255);
 }
 
-form {
+fieldset {
   display: flex;
   flex-direction: column;
   border: 1px solid white;
   padding: 5px;
 }
 
-form label, form button, form p {
+fieldset label, fieldset button, fieldset p {
   margin: 10px 0px;
 }
 
-form input {
+fieldset input {
   padding: 10px 0px;
   margin-right: 30%;
 

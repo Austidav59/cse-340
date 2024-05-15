@@ -33,7 +33,6 @@ async function buildRegister(req, res, next) {
 async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
-  console.log("hi")
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,
@@ -50,7 +49,6 @@ async function registerAccount(req, res) {
       nav,
     })
   } else {
-    console.log("3")
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/register", {
       title: "Registration",

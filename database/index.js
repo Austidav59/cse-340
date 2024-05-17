@@ -22,7 +22,7 @@ module.exports = {
     try {
       const res = await pool.query(text, params)
       // previosuly commented out log
-      console.log("executed query", { text })
+      //console.log("executed query", { text })
       return res
     } catch (error) {
       console.error("error in query", { text })

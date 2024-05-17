@@ -10,29 +10,26 @@
     <form class="vehicle-form" action="/inv/newVehicle" method="post">
         <h2>ALL FIELDS ARE REQUIRED</h2>
         <fieldset class="vehicle-fieldset">
-            <label class="top">Membership</label>
-            <select name="Classification_select">xs
-                <option value="">Please Select</option>
-                <div></div>
-            </select>
+            <label for="classificationList">Classification</label>
+            <%- classificationSelect %>
             <label>Make</label>
             <input class="r-firstname" name="make" type="text"  required placeholder="Enter Make">
             <label>Model</label>
             <input class="lastname" name="model" type="text"  required placeholder="Enter Model">
             <label>Description</label>
-            <input class="username" name="Description" type="text"  required placeholder="Enter Descritpion">
+            <input class="username" name="description" type="text"  required placeholder="Enter Descritpion">
             <label>Image path</label>
             <input class="lastname" name="image_path" type="text"  required placeholder="Ente Image Path">
             <label>Thumbnail path</label>
             <input class="lastname" name="thumbnail_path" type="text"  required placeholder="Ente Thumbnail Path">
             <label>Price</label>
-            <input class="lastname" name="Price" type="number"  required placeholder="Enter price">
+            <input class="lastname" name="price" type="number"  required placeholder="Enter price">
             <label>year</label>
             <input class="lastname" name="year" type="text"  required placeholder="Enter year">
             <label>miles</label>
             <input class="lastname" name="miles" type="number"  required placeholder="Enter Miles">
             <label>Color</label>
             <input class="lastname" name="color" type="text"  required placeholder="Entter Color">
-            <button class="r-submit" type="submit" name="login">Add New Car</button>
+            <button class="r-submit" type="submit">Add New Car</button>
         </fieldset>
     </form>

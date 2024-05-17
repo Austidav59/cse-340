@@ -8,13 +8,13 @@ const vehicleModel = require("../models/newVehicle-model")
 *  Deliver management view
 * *************************************** */
 async function buildManagement(req, res, next) {
-    let nav = await utilities.getNav()
-    req.flash("notice", "This is a flash message.")
-    res.render("inventory/management", {
-      title: "Vehicle Management",
-      nav,
+  let nav = await utilities.getNav()
+  req.flash("notice", "This is a flash message.")
+  res.render("inventory/management", {
+    title: "Vehicle Management",
+    nav,
 
-    })
+  })
 }
 
 async function addNewClassifacation(req, res, next) {
@@ -29,11 +29,12 @@ async function addNewClassifacation(req, res, next) {
 
 async function addNewVehicle(req, res, next) {
   let nav = await utilities.getNav()
+  const classificationSelect = await utilities.buildClassificationList()
   req.flash("notice", "This is a flash message.")
   res.render("inventory/newVehicle", {
     title: "Add New Vehicle",
     nav,
-
+    classificationSelect
   })
 }
 
@@ -42,7 +43,7 @@ async function addNewVehicle(req, res, next) {
 * *************************************** */
 async function processNewClassification(req, res) {
   let nav = await utilities.getNav()
-  const { new_classification} = req.body
+  const { new_classification } = req.body
   const regResult = await classificationModel.newClassifacation(
     new_classification,
   )
@@ -51,10 +52,7 @@ async function processNewClassification(req, res) {
       "notice",
       `Congratulations, you add your new classification`
     )
-    res.status(201).render("/inv/newClassifacation", {
-      title: "",
-      nav,
-    })
+    res.redirect('/inv')
   } else {
     req.flash("notice", "Sorry, your classification failed.")
     res.status(501).render("account/register", {
@@ -70,19 +68,16 @@ async function processNewClassification(req, res) {
 * *************************************** */
 async function processNewVehicle(req, res) {
   let nav = await utilities.getNav()
-  const { new_classification} = req.body
+  const { make, model, description, image_path, thumbnail_path, price, year, miles, color, classification_id } = req.body
   const regResult = await vehicleModel.newvehicle(
-    new_classification,
+    make, model, description, image_path, thumbnail_path, price, year, miles, color, classification_id,
   )
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations, you add your new classification`
+      `Congratulations, you added a new vehicle`
     )
-    res.status(201).render("/inv/newClassifacation", {
-      title: "",
-      nav,
-    })
+    res.redirect('/inv')
   } else {
     req.flash("notice", "Sorry, your classification failed.")
     res.status(501).render("account/register", {
@@ -92,4 +87,12 @@ async function processNewVehicle(req, res) {
   }
 }
 
-module.exports = {buildManagement, addNewClassifacation, addNewVehicle, processNewClassification, processNewVehicle}
+
+
+module.exports = {
+  buildManagement,
+  addNewClassifacation,
+  addNewVehicle,
+  processNewClassification,
+  processNewVehicle,
+}

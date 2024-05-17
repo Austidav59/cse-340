@@ -22,7 +22,7 @@ router.get("/newVehicle", utilities.handleErrors(manageController.addNewVehicle)
 // post new classification
 router.post("/newClassifacation",  utilities.handleErrors(manageController.processNewClassification))
 // post new vehicle
-router.post("/newVehicle",  utilities.handleErrors(manageController.processNewClassification))
+router.post("/newVehicle",  utilities.handleErrors(manageController.processNewVehicle))
 
 
 module.exports = router;

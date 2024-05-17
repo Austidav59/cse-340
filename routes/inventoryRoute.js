@@ -17,11 +17,12 @@ router.get("/", utilities.handleErrors(manageController.buildManagement))
 
 // New Classification
 router.get("/newClassifacation", utilities.handleErrors(manageController.addNewClassifacation))
-
-
 // New Vehivle
 router.get("/newVehicle", utilities.handleErrors(manageController.addNewVehicle))
-
+// post new classification
+router.post("/newClassifacation",  utilities.handleErrors(manageController.processNewClassification))
+// post new vehicle
+router.post("/newVehicle",  utilities.handleErrors(manageController.processNewClassification))
 
 
 module.exports = router;

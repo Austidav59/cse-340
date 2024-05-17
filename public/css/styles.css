@@ -236,6 +236,10 @@ fieldset input {
   padding: 10px;
 }
 
+nav {
+  color: white
+}
+
 
 
 
@@ -296,5 +300,6 @@ fieldset input {
     height: 50%;
     margin: 2em 1em 0px .5em;
   }
+
 
 }

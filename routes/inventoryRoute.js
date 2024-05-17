@@ -14,4 +14,14 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/detail/:invId", invController.buildByInvId);
 
 router.get("/", utilities.handleErrors(manageController.buildManagement))
+
+// New Classification
+router.get("/newClassifacation", utilities.handleErrors(manageController.addNewClassifacation))
+
+
+// New Vehivle
+router.get("/newVehicle", utilities.handleErrors(manageController.addNewVehicle))
+
+
+
 module.exports = router;

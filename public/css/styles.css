@@ -209,14 +209,33 @@ fieldset input {
 
 /* Register View */
 
-.r-submit {
-  padding: 5px 0px;
+.r-submit, form select {
   margin-right: 75%;
+}
+
+.r-submit {
+  padding: 10px 20px;
 }
 
 .r-firstname {
   margin-right: 60%;
 }
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Classification-fieldset, .vehicle-fieldset {
+  border: 1px solid white;
+  margin: 10px;
+}
+
+.Classification-form, .vehicle-form{
+  padding: 10px;
+}
+
 
 
 

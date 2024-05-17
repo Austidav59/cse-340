@@ -7,7 +7,7 @@ const accountModel = require("../models/account-model")
 async function buildManagement(req, res, next) {
     let nav = await utilities.getNav()
     req.flash("notice", "This is a flash message.")
-    res.render("/inv", {
+    res.render("inventory/management", {
       title: "Site Management",
       nav,
 

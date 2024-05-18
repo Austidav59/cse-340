@@ -240,6 +240,17 @@ nav {
   color: white
 }
 
+.valid {
+  background-color: white;
+}
+
+.invalid:invalid {
+  background-color: whitesmoke(255, 38, 38);
+}
+
+.valid:valid {
+  background-color: lightgreen;
+}
 
 
 

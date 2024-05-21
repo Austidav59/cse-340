@@ -16,10 +16,18 @@ router.get("/register", utilities.handleErrors(actController.buildRegister))
 // Process the registration data
 router.post(
     "/register",
-    // regValidate.registationRules(),
-    // regValidate.checkRegData,
+    regValidate.registationRules(),
+    regValidate.checkRegData,
     utilities.handleErrors(actController.registerAccount)
-  )
+)
 
+router.post(
+  "/login",
+  //regValidate.loginRules(),
+  //regValidate.checkLoginData,
+  utilities.handleErrors(actController.accountLogin)
+)
+
+router.post("/account", actController.buildLoggedInView)
 
 module.exports = router;

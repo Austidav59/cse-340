@@ -27,7 +27,6 @@ router.post(
   //regValidate.checkLoginData,
   utilities.handleErrors(actController.accountLogin)
 )
-
-router.post("/account", actController.buildLoggedInView)
+router.get("/", utilities.handleErrors(actController.buildAccountManagementView))
 
 module.exports = router;

@@ -20,7 +20,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 
-
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -56,6 +55,10 @@ app.use(function(req, res, next){
 
 // jstoken
 app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
+
+
 
 
 /* ***********************

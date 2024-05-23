@@ -36,8 +36,6 @@ async function buildRegister(req, res, next) {
 async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
-  
-
   // Hash the password before storing
   let hashedPassword
   try {
@@ -51,12 +49,8 @@ async function registerAccount(req, res) {
       errors: null,
     })
   }
-  const regResult = await accountModel.getAccountByEmail(
-    account_firstname,
-    account_lastname,
-    account_email,
-    hashedPassword
-  )
+  const regResult = await accountModel.registerAccount(account_firstname,account_lastname,account_email,hashedPassword)
+  console.log(regResult)
   if (regResult) {
     req.flash(
       "notice",
@@ -81,7 +75,6 @@ async function registerAccount(req, res) {
 async function buildAccountManagementView(req, res, next) {
   let nav = await utilities.getNav()
   req.flash("notice", "This is a flash message.")
-  console.log("building management view in controller")
   res.render("account/accountManagement", {
     title: "Your Logged In",
     nav,
@@ -96,7 +89,6 @@ async function accountLogin(req, res) {
  let nav = await utilities.getNav()
  const { account_email, account_password } = req.body
  const accountData = await accountModel.getAccountByEmail(account_email)
- console.log(accountData)
  if (!accountData) {
    req.flash("notice", "Please check your credentials and try again.")
    res.status(400).render("account/login", {
@@ -104,13 +96,13 @@ async function accountLogin(req, res) {
      nav,
      errors: null,
      account_email,
+     console
     })
     return
   }
   try {
     
     if (await bcrypt.compare(account_password, accountData.account_password)) {
-      console.log("compare passwords")
       delete accountData.account_password
       const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
   if(process.env.NODE_ENV === 'development') {

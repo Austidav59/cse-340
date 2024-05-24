@@ -9,14 +9,14 @@ require("dotenv").config()
 *  Deliver login view
 * *************************************** */
 async function buildLogin(req, res, next) {
-    let nav = await utilities.getNav()
-    req.flash("notice", "This is a flash message.")
-    res.render("account/login", {
-      title: "Login",
-      nav,
+  let nav = await utilities.getNav()
+  req.flash("notice", "This is a flash message.")
+  res.render("account/login", {
+    title: "Login",
+    nav,
 
-    })
-  }
+  })
+}
 
 /* ****************************************
 *  Deliver registration view
@@ -49,7 +49,7 @@ async function registerAccount(req, res) {
       errors: null,
     })
   }
-  const regResult = await accountModel.registerAccount(account_firstname,account_lastname,account_email,hashedPassword)
+  const regResult = await accountModel.registerAccount(account_firstname, account_lastname, account_email, hashedPassword)
   if (regResult) {
     req.flash(
       "notice",
@@ -82,38 +82,58 @@ async function buildAccountManagementView(req, res, next) {
 }
 
 /* ****************************************
+*  Log out
+* *************************************** */
+async function accountLogout(req, res) {
+  res.clearCookie("jwt")
+  res.locals.loggedin = ''
+  return res.redirect("/")
+}
+
+/* ****************************************
  *  Process login request
  * ************************************ */
 async function accountLogin(req, res) {
- let nav = await utilities.getNav()
- const { account_email, account_password } = req.body
- const accountData = await accountModel.getAccountByEmail(account_email)
- if (!accountData) {
-   req.flash("notice", "Please check your credentials and try again.")
-   res.status(400).render("account/login", {
-     title: "Login",
-     nav,
-     errors: null,
-     account_email,
-     console
+  let nav = await utilities.getNav()
+  const { account_email, account_password } = req.body
+  const accountData = await accountModel.getAccountByEmail(account_email)
+  if (!accountData) {
+    req.flash("notice", "Please check your credentials and try again.")
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+      console
     })
     return
   }
   try {
-    
+
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
       const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
-  if(process.env.NODE_ENV === 'development') {
-    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
-    } else {
-      res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+      if (process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      } else {
+        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+        const authorized = true
+      }
+      return res.redirect("/account")
     }
-  return res.redirect("/account")
+  } catch (error) {
+    return new Error('Access Forbidden')
   }
- } catch (error) {
-  return new Error('Access Forbidden')
- }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagementView}
+// send a boolean Authenticated value
+
+
+module.exports = {
+  buildLogin,
+  buildRegister,
+  registerAccount,
+  accountLogin,
+  buildAccountManagementView,
+  accountLogout
+}

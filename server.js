@@ -5,6 +5,7 @@
 /* ***********************
  * Require Statements
  *************************/
+const cookieParser = require("cookie-parser");
 const account = require("./routes/accountRoute")
 const session = require("express-session")
 const pool = require('./database/')
@@ -17,8 +18,6 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities/index");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-
 
 /* ***********************
  * View Engine and Templates
@@ -27,6 +26,7 @@ const cookieParser = require("cookie-parser");
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
+app.use(utilities.checkJWTToken())
 
 
 /* ***********************
@@ -55,7 +55,6 @@ app.use(function(req, res, next){
 
 // jstoken
 app.use(cookieParser())
-
 app.use(utilities.checkJWTToken)
 
 
@@ -69,6 +68,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 app.use("/account", account)
 app.use("/account", require("./routes/accountRoute"))
+
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

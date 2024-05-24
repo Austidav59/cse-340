@@ -29,4 +29,7 @@ router.post(
 )
 router.get("/", utilities.handleErrors(actController.buildAccountManagementView))
 
+router.get("/logout", utilities.handleErrors(actController.accountLogout))
+
+
 module.exports = router;

@@ -252,6 +252,14 @@ nav {
   background-color: lightgreen;
 }
 
+header div{
+  display: flex;
+  margin-right: 10px;
+}
+
+
+
+
 
 
 

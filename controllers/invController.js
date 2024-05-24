@@ -51,5 +51,19 @@ invCont.getInventoryJSON = async (req, res, next) => {
   }
 }
 
+/* ****************************************
+*  Deliver management view
+* *************************************** */
+invCont.buildInvMangementView = async (req, res, next) => {
+  let nav = await utilities.getNav()
+  const classificationSelect = await utilities.buildClassificationList()
+  res.render("./inventory/invDisplay", {
+    title: "Manage Inventory",
+    nav,
+    errors: null,
+    classificationSelect
+  })
+}
+
 
 module.exports = invCont;

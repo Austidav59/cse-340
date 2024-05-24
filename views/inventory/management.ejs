@@ -7,18 +7,12 @@
 
     <%# messages() %>
 
-<div class="links">
-    <a href="/inv/newClassifacation">Add New Classifacation</a>
-    <a href="/inv/newVehicle">Add New Vehicle</a>
-</div>
+<h2>Welcome <%- locals.accountData.account_firstname %></h2>
 
+<a href="/inv/editAccount">Edit Account Information</a>
 
-<h2>Manage Inventory</h2>
-<p>Choose a classification to see those inventory items.</p>
-<%- classificationSelect %>
+<h2>Edit </h2>
 
-<table id="inventoryDisplay"></table>
+<h3>Manage Inventory</h3>
+<a href="/inv/invDisplay">Manage Inventory</a>
 
-<noscript>JavaScript must be enabled to use this page.</noscript>
-
-<script src="../../js/inventory.js"></script>

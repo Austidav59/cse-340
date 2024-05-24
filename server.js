@@ -5,19 +5,52 @@
 /* ***********************
  * Require Statements
  *************************/
-const cookieParser = require("cookie-parser");
-const account = require("./routes/accountRoute")
-const session = require("express-session")
-const pool = require('./database/')
 const express = require("express")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
+const env = require("dotenv").config()
+const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute");
-const utilities = require("./utilities/index");
-const bodyParser = require("body-parser");
+const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
+const utilities = require("./utilities/")
+const session = require("express-session")
+const pool = require("./database")
+const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+
+const app = express()
+
+/* ***********************
+ * Middleware
+ * Between the request and response
+ * ************************/
+// Unit 4, Sessions & Messages Activity
+app.use(
+  session({
+    store: new (require("connect-pg-simple")(session))({
+      createTableIfMissing: true,
+      pool,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    name: "sessionId",
+  })
+)
+// Unit 4, Sessions & Messages Activity
+// Express Messages Middleware
+app.use(require("connect-flash")())
+app.use(function (req, res, next) {
+  res.locals.messages = require("express-messages")(req, res)
+  next()
+})
+// Unit 4, Process Registration Activity
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+// Unit 5, Login activity
+app.use(cookieParser())
+// Unit 5, Login Process activity
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
@@ -26,38 +59,6 @@ const bodyParser = require("body-parser");
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
-app.use(utilities.checkJWTToken())
-
-
-/* ***********************
- * Middleware
- * ************************/
-app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-}))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
-
-// Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
-  next()
-})
-
-// jstoken
-app.use(cookieParser())
-app.use(utilities.checkJWTToken)
-
-
 
 
 /* ***********************
@@ -66,9 +67,7 @@ app.use(utilities.checkJWTToken)
 app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
-app.use("/account", account)
-app.use("/account", require("./routes/accountRoute"))
-
+app.use("/account", accountRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
@@ -104,4 +103,3 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
-

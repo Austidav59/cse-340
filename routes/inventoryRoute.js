@@ -4,6 +4,7 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 const manageController = require("../controllers/manageController");
 const utilities = require("../utilities")
+const actController = require("../controllers/accountCountroller");
 
 
 
@@ -36,5 +37,11 @@ router.post("/update/", utilities.handleErrors(manageController.updateInventory)
 router.get("/delete/:inv_id", utilities.handleErrors(manageController.deleteView))
 
 router.post("/delete" , utilities.handleErrors(manageController.deleteItem))
+
+router.get("/invDisplay", utilities.handleErrors(invController.buildInvMangementView))
+
+router.get("/editAccount", utilities.handleErrors(actController.editAccountInfo))
+
+
 
 module.exports = router;

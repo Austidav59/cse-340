@@ -24,5 +24,14 @@ router.post("/newClassifacation",  utilities.handleErrors(manageController.proce
 // post new vehicle
 router.post("/newVehicle",  utilities.handleErrors(manageController.processNewVehicle))
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+router.get("/edit/:inv_id", utilities.handleErrors(manageController.editVehicle))
+
+router.post("/update/", utilities.handleErrors(manageController.updateInventory))
+
+router.get("/delete/:inv_id", utilities.handleErrors(manageController.deleteView))
+
+router.post("/delete" , utilities.handleErrors(manageController.deleteItem))
 
 module.exports = router;

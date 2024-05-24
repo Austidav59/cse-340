@@ -50,7 +50,6 @@ async function registerAccount(req, res) {
     })
   }
   const regResult = await accountModel.registerAccount(account_firstname,account_lastname,account_email,hashedPassword)
-  console.log(regResult)
   if (regResult) {
     req.flash(
       "notice",

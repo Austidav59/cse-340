@@ -36,7 +36,7 @@ async function buildRegister(req, res, next) {
  * ************************** */
 async function editAccountInfo(req, res, next) {
   let nav = await utilities.getNav()
-  const account_id = parseInt(req.params.id)
+  const account_id = parseInt(req.params.account_id)
   const accountData = await accountModel.getAccountById(account_id)
   res.render("account/editAccount", {
     title: "Edit Account",
@@ -90,7 +90,7 @@ async function registerAccount(req, res) {
 /* ****************************************
 *  Deliver logged in view
 * *************************************** */
-async function buildInvMangementView(req, res, next) {
+async function buildAccountMangementView(req, res, next) {
   let nav = await utilities.getNav()
   const classificationSelect = await utilities.buildClassificationList()
   res.render("./account/accountmanagement", {
@@ -154,7 +154,7 @@ module.exports = {
   buildRegister,
   registerAccount,
   accountLogin,
-  buildInvMangementView,
+  buildAccountMangementView,
   accountLogout,
   editAccountInfo
 }

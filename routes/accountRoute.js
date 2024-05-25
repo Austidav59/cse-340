@@ -4,9 +4,6 @@ const router = new express.Router()
 const actController = require("../controllers/accountCountroller");
 const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
-const invController = require("../controllers/invController")
-
-
 
 // LOGIN VIEW
 router.get("/login", utilities.handleErrors(actController.buildLogin))
@@ -29,12 +26,10 @@ router.post(
   //regValidate.checkLoginData,
   utilities.handleErrors(actController.accountLogin)
 )
-router.get("/", utilities.handleErrors(actController.buildAccountManagementView))
+router.get("/", utilities.handleErrors(actController.buildAccountMangementView))
 
 router.get("/logout", utilities.handleErrors(actController.accountLogout))
 
-router.get("/editAccount", utilities.handleErrors(actController.editAccountInfo))
-
-router.get("/accountManagement", utilities.handleErrors(actController.buildInvMangementView))
+router.get("/editAccount/:account_id", utilities.handleErrors(actController.editAccountInfo))
 
 module.exports = router;

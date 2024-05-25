@@ -7,6 +7,8 @@
 
 <!-- Flash message -->
 <%- messages() %>
+<h2>Welcome <%= accountData.account_firstname  %></h2>
+<p>You're logged in.</p>
 
 <div class="links">  
   <a href="/inv/newClassifacation">Add New Classifacation</a>
@@ -14,11 +16,5 @@
 </div>    
 
 
-<p>Choose a classification to see those inventory items.</p>
-<%- classificationSelect %>
-
-<table id="inventoryDisplay"></table>
-
-<noscript>JavaScript must be enabled to use this page.</noscript>
-
-<script src="../../js/inventory.js"></script>
+<h3>Edit Account Info</h3>
+<a href="/account/editAccount/<%= accountData.account_id %>" title="Click to update your account information">Edit Account Information</a>

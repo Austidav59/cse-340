@@ -35,27 +35,17 @@ async function buildRegister(req, res, next) {
  *  Build edit inventory view
  * ************************** */
 async function editAccountInfo(req, res, next) {
-  const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
-  // const itemData = await invModel.getInventoryById(inv_id)
-  // const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
-  // const itemName = `${itemData.inv_make} ${itemData.inv_model}`
-  res.render("./account/editAccount", {
+  const account_id = parseInt(req.params.id)
+  const accountData = await accountModel.getAccountById(account_id)
+  res.render("account/editAccount", {
     title: "Edit Account",
     nav,
-    // classificationSelect: classificationSelect,
-    // errors: null,
-    // inv_id: itemData.inv_id,
-    // inv_make: itemData.inv_make,
-    // inv_model: itemData.inv_model,
-    // inv_year: itemData.inv_year,
-    // inv_description: itemData.inv_description,
-    // inv_image: itemData.inv_image,
-    // inv_thumbnail: itemData.inv_thumbnail,
-    // inv_price: itemData.inv_price,
-    // inv_miles: itemData.inv_miles,
-    // inv_color: itemData.inv_color,
-    // classification_id: itemData.classification_id
+    errors: null,
+    account_id: accountData.account_id,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
   })
 }
 
@@ -100,13 +90,14 @@ async function registerAccount(req, res) {
 /* ****************************************
 *  Deliver logged in view
 * *************************************** */
-async function buildAccountManagementView(req, res, next) {
+async function buildInvMangementView(req, res, next) {
   let nav = await utilities.getNav()
-  req.flash("notice", "This is a flash message.")
-  res.render("account/accountManagement", {
-    title: "Your Logged In",
+  const classificationSelect = await utilities.buildClassificationList()
+  res.render("./account/accountmanagement", {
+    title: "Manage Inventory",
     nav,
-
+    errors: null,
+    classificationSelect
   })
 }
 
@@ -163,7 +154,7 @@ module.exports = {
   buildRegister,
   registerAccount,
   accountLogin,
-  buildAccountManagementView,
+  buildInvMangementView,
   accountLogout,
   editAccountInfo
 }

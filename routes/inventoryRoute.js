@@ -38,8 +38,6 @@ router.get("/delete/:inv_id", utilities.handleErrors(manageController.deleteView
 
 router.post("/delete" , utilities.handleErrors(manageController.deleteItem))
 
-router.get("/invDisplay", utilities.handleErrors(invController.buildInvMangementView))
-
 router.get("/editAccount", utilities.handleErrors(actController.editAccountInfo))
 
 

@@ -3,20 +3,20 @@ const pool = require("../database/")
 /* *****************************
 *   Register new account
 * *************************** */
-async function registerAccount(account_firstname, account_lastname, account_email, account_password){
-    try {
-      const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
-      return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
-    } catch (error) {
-      return error.message
-    }
+async function registerAccount(account_firstname, account_lastname, account_email, account_password) {
+  try {
+    const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
+    return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
+  } catch (error) {
+    return error.message
+  }
 }
 
 /* *****************************
 * Return account data using email address
 * ***************************** */
-async function getAccountByEmail (account_email) {
-  try{
+async function getAccountByEmail(account_email) {
+  try {
     const result = await pool.query(
       'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
       [account_email])
@@ -26,5 +26,19 @@ async function getAccountByEmail (account_email) {
   }
 }
 
+async function getAccountById(account_id) {
+  try {
+    const res = await pool.query(
+      'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_id = $1',
+      [account_id]
+    )
+    return res.rows[0]
+  } catch (error) {
+    throw new Error('Query failed.')
+  }
+}
 
-module.exports = {registerAccount, getAccountByEmail}
+
+
+
+module.exports = { registerAccount, getAccountByEmail, getAccountById }

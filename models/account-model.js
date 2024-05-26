@@ -45,21 +45,23 @@ async function updateAccount(
   account_id,
   account_firstname,
   account_lastname,
-  account_email,
-  account_type,
-  account_password
+  account_email
 ) {
+  console.log(account_id,
+    account_firstname,
+    account_lastname,
+    account_email)
   try {
+    console.log(1)
     const sql =
-      "UPDATE public.account SET account_firstname = $2, account_lastname = $3, account_email = $4, WHERE account_id = $1 RETURNING *"
+      "UPDATE public.account SET account_firstname = $2, account_lastname = $3, account_email = $4 WHERE account_id = $1 RETURNING *"
     const data = await pool.query(sql, [
     account_id,
     account_firstname,
     account_lastname,
-    account_email,
-    account_type,
-    account_password
+    account_email
     ])
+    console.log(data)
     return data.rows[0]
   } catch (error) {
     console.error("model error: " + error)

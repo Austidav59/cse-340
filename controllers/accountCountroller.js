@@ -156,38 +156,29 @@ async function updateAccount(req, res, next) {
     account_id,
     account_firstname,
     account_lastname,
-    account_email,
-    account_type,
-    account_password
+    account_email
   } = req.body
   const updateResult = await accountModel.updateAccount(
     account_id,
     account_firstname,
     account_lastname,
-    account_email,
-    account_type,
-    account_password
+    account_email
   )
 
   if (updateResult) {
-    const itemName = updateResult.inv_make + " " + updateResult.inv_model
-    req.flash("notice", `The ${itemName} was successfully updated.`)
-    res.redirect("/inv/")
+    req.flash("notice", `This was successfully updated.`)
+    res.redirect("/account")
   } else {
-    const classificationSelect = await utilities.buildClassificationList(classification_id)
-    const itemName = `${inv_make} ${inv_model}`
+    // const classificationSelect = await utilities.buildClassificationList(classification_id)
     req.flash("notice", "Sorry, the insert failed.")
-    res.status(501).render("inventory/edit-inventory", {
-      title: "Edit " + itemName,
+    res.status(501).render("account/editAccount", {
+      title: "Edit",
       nav,
-      classificationSelect: classificationSelect,
       errors: null,
       account_id,
       account_firstname,
       account_lastname,
-      account_email,
-      account_type,
-      account_password
+      account_email
     })
   }
 }

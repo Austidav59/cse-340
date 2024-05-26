@@ -32,4 +32,8 @@ router.get("/logout", utilities.handleErrors(actController.accountLogout))
 
 router.get("/editAccount/:account_id", utilities.handleErrors(actController.editAccountInfo))
 
+router.post("/updateAccount", utilities.handleErrors(actController.updateAccount))
+
+router.post("/updatePassword", utilities.handleErrors(actController.updatePassword))
+
 module.exports = router;

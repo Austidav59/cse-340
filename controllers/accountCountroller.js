@@ -146,6 +146,52 @@ async function accountLogin(req, res) {
   }
 }
 
+
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updateAccount(req, res, next) {
+  let nav = await utilities.getNav()
+  const {
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_type,
+    account_password
+  } = req.body
+  const updateResult = await accountModel.updateAccount(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_type,
+    account_password
+  )
+
+  if (updateResult) {
+    const itemName = updateResult.inv_make + " " + updateResult.inv_model
+    req.flash("notice", `The ${itemName} was successfully updated.`)
+    res.redirect("/inv/")
+  } else {
+    const classificationSelect = await utilities.buildClassificationList(classification_id)
+    const itemName = `${inv_make} ${inv_model}`
+    req.flash("notice", "Sorry, the insert failed.")
+    res.status(501).render("inventory/edit-inventory", {
+      title: "Edit " + itemName,
+      nav,
+      classificationSelect: classificationSelect,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_type,
+      account_password
+    })
+  }
+}
+
 // send a boolean Authenticated value
 
 
@@ -156,5 +202,6 @@ module.exports = {
   accountLogin,
   buildAccountMangementView,
   accountLogout,
-  editAccountInfo
+  editAccountInfo,
+  updateAccount
 }

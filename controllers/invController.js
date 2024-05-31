@@ -69,7 +69,7 @@ invCont.addReview = async (req,res) => {
   console.log(req,res)
   let nav = await utilities.getNav()
   const { review_text, review_screen_name, inv_id} = req.body
-  res.status(500).render("./inventory/detail", {
+  res.status(500).render("./inventory/detail/", {
     title: 
     nav,
     errors: null,

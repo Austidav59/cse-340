@@ -37,6 +37,9 @@ router.get("/delete/:inv_id", utilities.handleErrors(manageController.deleteView
 
 router.post("/delete" , utilities.handleErrors(manageController.deleteItem))
 
+router.post("/addReview",utilities.handleErrors(invController.addReview))
+
+
 
 
 module.exports = router;

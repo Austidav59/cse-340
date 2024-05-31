@@ -10,3 +10,17 @@
 
 <!-- inventory items display -->
 <%- grid %>
+
+<h3>Add Your Own review</h3>
+<form action="/inv/addReview" method="post">
+  <fieldset>
+    <label for="review_screen_name">Screen Name</label>
+    <input name="review_screen_name" type="text">
+    <label for="review_text"></label>
+    <textarea name="review_text" cols="30" rows="10"></textarea>
+    <button type="submit">Add Review</button>
+    <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+        <% } %>>
+  </fieldset>
+</form>

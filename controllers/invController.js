@@ -65,5 +65,17 @@ invCont.buildInvMangementView = async (req, res, next) => {
   })
 }
 
+invCont.addReview = async (req,res) => {
+  console.log(req,res)
+  let nav = await utilities.getNav()
+  const { review_text, review_screen_name, inv_id} = req.body
+  res.status(500).render("./inventory/detail", {
+    title: 
+    nav,
+    errors: null,
+  })
+  const regResult = await invModel.addReview(review_text, review_screen_name, inv_id)
+}
+
 
 module.exports = invCont;

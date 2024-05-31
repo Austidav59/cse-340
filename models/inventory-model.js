@@ -91,6 +91,16 @@ async function updateInventory(
   }
 }
 
+async function addReview(review_text, review_screen_name, inv_id) {
+  try {
+    console.log(review_text, review_screen_name, inv_id)
+    const sql = "INSERT INTO review (review_text, review_screen_name, inv_id) VALUES ($1, $2, $3) RETURNING *"
+    return await pool.query(sql, [review_text, review_screen_name, inv_id])
+  } catch (error) {
+    return error.message
+  }
+}
+
 async function deleteInventoryItem(inv_id) {
   try {
   const sql = "DELETE FROM inventory WHERE inv_id = $1"
@@ -107,6 +117,7 @@ module.exports = {
   buildByInvId, 
   getInventoryById,
   updateInventory,
-  deleteInventoryItem
+  deleteInventoryItem,
+  addReview
 };
 

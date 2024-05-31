@@ -47,10 +47,6 @@ async function updateAccount(
   account_lastname,
   account_email
 ) {
-  console.log(account_id,
-    account_firstname,
-    account_lastname,
-    account_email)
   try {
     console.log(1)
     const sql =
@@ -71,4 +67,10 @@ async function updateAccount(
 
 
 
-module.exports = { registerAccount, getAccountByEmail, getAccountById, updateAccount }
+module.exports = { 
+  registerAccount,
+  getAccountByEmail,
+  getAccountById,
+  updateAccount
+
+}

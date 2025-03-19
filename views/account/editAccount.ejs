@@ -25,11 +25,16 @@
 <h2>Update Password</h2>
 <form action="/account/updatePassword" method="post">
   <fieldset>
-          <h2>ALL FIELDS ARE REQUIRED</h2>
-      <label>Update Password</label>
-      <input class="password" name="account_password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required placeholder="Enter Password">
-      <p>Passwords must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</p>
-      <button class="show-password">Show Password</button>
-      <button class="r-submit" type="submit" name="login">Update password</button>
+    <h2>ALL FIELDS ARE REQUIRED</h2>
+    <!-- Hidden field to pass account_id -->
+    <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+    
+    <label>Update Password</label>
+    <input class="password" name="account_password" type="password"
+      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" 
+      required placeholder="Enter Password">
+    <p>Passwords must be at least 12 characters long and include 1 uppercase letter, 1 number, and 1 special character.</p>
+    
+    <button class="r-submit" type="submit">Update Password</button>
   </fieldset>
 </form>
